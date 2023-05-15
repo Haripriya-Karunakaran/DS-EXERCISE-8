@@ -79,25 +79,101 @@ sbn.lineplot(x=df['Sales'], y=df['Profit'])
 
 plt.title("Relation between Sales and Profit")
 
-sbn.barplot(x=df['Segment'],y=df['Profit'])
+grouped_data = df.groupby('Segment')[['Sales', 'Profit']].mean()
+
+#Create a bar chart of the grouped data
+
+fig, ax = plt.subplots()
+
+ax.bar(grouped_data.index, grouped_data['Sales'], label='Sales')
+
+ax.bar(grouped_data.index, grouped_data['Profit'], bottom=grouped_data['Sales'], label='Profit')
+
+ax.set_xlabel('Segment')
+
+ax.set_ylabel('Value')
+
+ax.legend()
 
 plt.title("Sales and Profit based on Segment")
 
-sbn.barplot(x=df['City'],y=df['Profit'])
+plt.show()
+
+grouped_data = df.groupby('City')[['Sales', 'Profit']].mean()
+
+#Create a bar chart of the grouped data
+
+fig, ax = plt.subplots()
+
+ax.bar(grouped_data.index, grouped_data['Sales'], label='Sales')
+
+ax.bar(grouped_data.index, grouped_data['Profit'], bottom=grouped_data['Sales'], label='Profit')
+
+ax.set_xlabel('City')
+
+ax.set_ylabel('Value')
+
+ax.legend()
 
 plt.title("Sales and Profit based on City")
 
-sbn.barplot(x=df['Region'],y=df['Profit'])
+plt.show()
+
+grouped_data = df.groupby('State')[['Sales', 'Profit']].mean()
+
+#Create a bar chart of the grouped data
+
+fig, ax = plt.subplots()
+
+ax.bar(grouped_data.index, grouped_data['Sales'], label='Sales')
+
+ax.bar(grouped_data.index, grouped_data['Profit'], bottom=grouped_data['Sales'], label='Profit')
+
+ax.set_xlabel('State')
+
+ax.set_ylabel('Value')
+
+ax.legend()
 
 plt.title("Sales and Profit based on States")
 
-sbn.barplot(x=df['Ship Mode'],y=df['Profit'])
+grouped_data = df.groupby(['Segment', 'Ship Mode'])[['Sales', 'Profit']].mean()
 
-plt.title("Sales and Profit based on Ship mode")
+pivot_data = grouped_data.reset_index().pivot(index='Segment', columns='Ship Mode', values=['Sales', 'Profit'])
 
-sbn.barplot(x=df['Sales'],y=df['Profit'])
+#Create a bar chart of the grouped data
 
-plt.title("Sales and Profit based on Segment")
+fig, ax = plt.subplots()
+
+pivot_data.plot(kind='bar', ax=ax)
+
+ax.set_xlabel('Segment')
+
+ax.set_ylabel('Value')
+
+plt.legend(title='Ship Mode')
+
+plt.legend(loc="best")
+
+plt.title("Sales and Profit based on Segment and Ship mode")
+
+plt.show()
+
+grouped_data = df.groupby(['Segment', 'Ship Mode','Region'])[['Sales', 'Profit']].mean()
+
+pivot_data = grouped_data.reset_index().pivot(index=['Segment', 'Ship Mode'], columns='Region', values=['Sales', 'Profit'])
+
+sbn.set_style("whitegrid")
+
+sbn.set_palette("Set1")
+
+pivot_data.plot(kind='bar', stacked=True, figsize=(8, 5))
+
+plt.legend(title='Region')
+
+plt.legend(loc='best')
+
+plt.title("Sales and Profit based on Segment,Ship mode and Region")
 
 ## OUPUT
 
@@ -119,15 +195,16 @@ plt.title("Sales and Profit based on Segment")
 
 ![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/50495f9e-7a5f-495f-b534-0b1ee90fc3b8)
 
-![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/d73f8744-fd9b-4f63-ae11-456a68fc95fd)
+![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/ed65a08e-0adc-4465-891d-d56e7d49f09c)
 
-![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/656a4984-ae41-4436-ad87-efe8bbef2fb4)
+![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/c68beae3-d484-44cb-beef-a4e7553a1155)
 
-![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/4e52a7a8-3e95-4ebd-953e-dee720552234)
+![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/1fa65db6-447a-4d52-91c6-499e3e718cb5)
 
-![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/04ebee52-d9b1-4b47-9c95-42f53f253a61)
+![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/7c429af4-b8c1-473c-8492-856c7fab176e)
 
-![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/3b7e909d-985d-4e6d-a78f-18b0a4310fb2)
+![image](https://github.com/Haripriya-Karunakaran/DS-EXERCISE-8/assets/126390051/6afc82c6-a1e4-438b-971c-200c20491fd2)
+
 
 ## RESULT
 
